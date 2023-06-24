@@ -1,0 +1,81 @@
+run:
+  timeout: "10m"
+linters:
+  disable-all: true
+  enable:
+    # Format
+    - "asciicheck"
+    - "bidichk"
+    - "gofmt"
+    - "gofumpt"
+    - "goimports"
+    # Comments
+    - "misspell"
+    - "revive"
+    # Context
+    - "containedctx"
+    - "contextcheck"
+    # Simplify
+    - "ineffassign"
+    - "gosimple"
+    - "unused"
+    - "unconvert"
+    - "unparam"
+    - "dupl"
+    - "typecheck"
+    - "goconst"
+    - "prealloc"
+    # Error
+    - "goerr113"
+    - "errname"
+    - "errchkjson"
+    - "nilerr"
+    - "nilnil"
+    # Debug
+    - "govet"
+    - "bodyclose"
+    - "staticcheck"
+    # Code Complexity
+    - "maintidx"
+    - "gocognit"
+    - "gocritic"
+    - "gocyclo"
+    - "nakedret"
+    - "nolintlint"
+linters-settings:
+  revive:
+    rules:
+      - name: package-comments
+        severity: warning
+        disabled: true
+  depguard:
+    list-type: blacklist
+    include-go-root: true
+  errcheck:
+    check-type-assertions: true
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - style
+      - performance
+      - opinionated
+      - experimental
+  gocyclo:
+    min-complexity: 10
+  nolintlint:
+    allow-unused: false
+    allow-leading-space: false
+    allow-no-explanation:
+      - errcheck
+      - misspell
+    require-explanation: true
+    require-specific: true
+issues:
+  exclude-rules:
+    - path: (.+)_test.go
+      linters:
+        - goerr113
+        - dupl
+  exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
