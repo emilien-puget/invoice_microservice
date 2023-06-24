@@ -28,9 +28,9 @@ func NewDoTransactionHandler(invoiceRepository *Repository, userRepository *user
 }
 
 type TransactionPayload struct {
-	InvoiceID int64   `json:"invoice_id"`
-	Amount    float64 `json:"amount"`
-	Reference string  `json:"reference"`
+	InvoiceID int64   `json:"invoice_id" validate:"required"`
+	Amount    float64 `json:"amount" validate:"required"`
+	Reference string  `json:"reference" validate:"required"`
 }
 
 func (d DoTransactionHandler) Handle(c echo.Context) error {

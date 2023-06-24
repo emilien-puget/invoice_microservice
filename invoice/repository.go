@@ -78,7 +78,7 @@ func (r *Repository) GetByID(ctx context.Context, id int64) (*Invoice, error) {
 	query := `
 		SELECT id, user_id, status, label, amount
 		FROM jump.public.invoices
-		WHERE id = ?
+		WHERE id = $1
 	`
 
 	row := r.db.QueryRowContext(ctx, query, id)

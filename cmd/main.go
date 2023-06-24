@@ -57,12 +57,14 @@ func main() {
 	userRepository := user.NewUserRepository(db)
 	invoiceRepository := invoice.NewInvoiceRepository(db)
 	usersHandler := user.NewGetAllHandler(userRepository)
+	transactionHandler := invoice.NewDoTransactionHandler(invoiceRepository, userRepository, validate)
 	invoiceHandler := invoice.NewCreateInvoiceHandler(validate, invoiceRepository, userRepository)
 	e.Use(middleware.Logger())
 	e.Use(echoprometheus.NewMiddleware(service))
 	e.GET("/metrics", echoprometheus.NewHandler())
 	e.GET("/users", usersHandler.Handle)
 	e.POST("/invoice", invoiceHandler.Handle)
+	e.POST("/transaction", transactionHandler.Handle)
 
 	go func() {
 		err := e.Start(fmt.Sprintf(":%s", eCfg.Port))

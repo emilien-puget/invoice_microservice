@@ -60,7 +60,7 @@ func TestInvoiceRepository_GetByID(t *testing.T) {
 	}
 
 	// Mock the expected query and result
-	mock.ExpectQuery("SELECT id, user_id, status, label, amount FROM jump.public.invoices WHERE id = ?").
+	mock.ExpectQuery("SELECT id, user_id, status, label, amount FROM jump.public.invoices WHERE id = $1").
 		WithArgs(invoice.ID).
 		WillReturnRows(sqlmock.NewRows([]string{"id", "user_id", "status", "label", "amount"}).
 			AddRow(invoice.ID, invoice.UserID, invoice.Status, invoice.Label, invoice.Amount))
